@@ -1,30 +1,291 @@
-html, body {
-    background-color: lightblue;
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 20px;
+:root {
+  /* Color palette — navy primary matches the logo */
+  --color-primary:       #1a3a5c;
+  --color-accent:        #2563eb;
+  --color-accent-hover:  #1d4ed8;
+  --color-bg:            #f1f5f9;   /* light gray page background */
+  --color-surface:       #ffffff;   /* card / list-item background */
+  --color-text:          #1e293b;   /* dark slate for body text */
+  --color-text-muted:    #64748b;   /* secondary / caption text */
+  --color-border:        #e2e8f0;   /* subtle dividers and outlines */
+  --color-nav-bg:        #1a3a5c;
+  --color-footer-bg:     #1a3a5c;
+  --color-footer-text:   #e2e8f0;
+
+  /* Typography */
+  --font-body:    'Inter', system-ui, -apple-system, sans-serif;
+  --font-size-sm: 0.875rem;
+  --font-size-md: 1rem;
+  --line-height:  1.65;
+
+  /* Spacing scale */
+  --space-xs:  0.25rem;
+  --space-sm:  0.5rem;
+  --space-md:  1rem;
+  --space-lg:  1.5rem;
+  --space-xl:  2rem;
+  --space-2xl: 3rem;
+
+  /* Layout */
+  --max-width: 1100px;
+  --radius:    0.45rem;
 }
 
+/* ── 3. Box Model Reset ───────────────────────────────────── */
+/*
+   Ensures padding and borders are included in element widths,
+   preventing unexpected overflow on all browsers.
+*/
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+/* ── 4. Base / Body ───────────────────────────────────────── */
+/*
+   flex + min-height: 100vh pushes the footer to the bottom
+   even on short pages (sticky footer layout).
+*/
 body {
-    nav {
-        ul {
-            list-style-type: none;
-            padding: 0;
-        }
+  font-family: var(--font-body);
+  font-size: var(--font-size-md);
+  line-height: var(--line-height);
+  color: var(--color-text);
+  background-color: var(--color-bg);
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
 
-        li {
-            display: inline;
-            margin-right: 15px;
-        }
+/* ── 5. Navigation ────────────────────────────────────────── */
+/*
+   Full-width dark bar at the top with centered, wrapping links.
+   On mobile the links stack vertically (see media query below).
+*/
+nav {
+  background-color: var(--color-nav-bg);
+  padding: var(--space-md) var(--space-xl);
+}
 
-        a {
-            text-decoration: none;
-            color: #333;
-            font-weight: bold;
+nav ul {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;          /* wraps to next line on small screens */
+  gap: var(--space-xs) var(--space-lg);
+  max-width: var(--max-width);
+  margin: 0 auto;
+  align-items: center;
+}
 
-            &:hover {
-                color: #0066cc;
-            }
-        }
-    }
-}  
+/* Reset: nav items must NOT inherit the card styles from ul li */
+nav ul li {
+  background: none;
+  border: none;
+  border-radius: 0;
+  padding: 0;
+  margin: 0;
+  box-shadow: none;
+  transition: none;
+}
+
+nav ul li:hover {
+  box-shadow: none;
+  border-color: transparent;
+}
+
+/* Nav links — white text with a sliding underline on hover */
+nav a {
+  position: relative;
+  color: #ffffff;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: var(--font-size-sm);
+  padding: var(--space-xs) var(--space-sm);
+  letter-spacing: 0.02em;
+  transition: color 0.18s ease;
+}
+
+/* Underline pseudo-element: starts at 0 width, expands on hover */
+nav a::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: var(--space-sm);
+  right: var(--space-sm);
+  height: 2px;
+  background-color: #ffffff;
+  border-radius: 2px;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.22s ease;
+}
+
+nav a:hover::after,
+nav a:focus-visible::after {
+  transform: scaleX(1);
+}
+
+nav a:hover,
+nav a:focus-visible {
+  color: rgba(255, 255, 255, 0.85);
+  outline: none;
+}
+
+/* ── 6. Main Content Area ─────────────────────────────────── */
+/*
+   flex: 1 makes main grow to fill remaining space between
+   nav and footer, keeping footer pinned to the bottom.
+*/
+main {
+  flex: 1;
+  max-width: var(--max-width);
+  width: 100%;
+  margin: var(--space-2xl) auto;
+  padding: 0 var(--space-xl);
+}
+
+/* ── 7. Headings ──────────────────────────────────────────── */
+/*
+   clamp() scales font size fluidly between viewport sizes
+   without requiring separate media-query breakpoints.
+*/
+h1 {
+  font-size: clamp(1.6rem, 4vw, 2.5rem);
+  font-weight: 700;
+  color: var(--color-primary);
+  margin-bottom: var(--space-md);
+  line-height: 1.2;
+}
+
+h2 {
+  font-size: clamp(1.2rem, 3vw, 1.75rem);
+  font-weight: 600;
+  color: var(--color-primary);
+  margin-bottom: var(--space-md);
+  margin-top: var(--space-lg);
+}
+
+/* ── 8. Paragraphs ────────────────────────────────────────── */
+p {
+  color: var(--color-text);
+  margin-bottom: var(--space-md);
+  max-width: 65ch;   /* ~65 characters — optimal readable line length */
+}
+
+/* ── 9. Lists ─────────────────────────────────────────────── */
+/*
+   Each list item is a card-style row with a subtle border,
+   hover shadow, and flex layout for inline images + text.
+*/
+ul {
+  list-style: none;
+  padding: 0;
+  margin: var(--space-md) 0;
+}
+
+ul li {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  padding: var(--space-md) var(--space-lg);
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  margin-bottom: var(--space-sm);
+  transition: box-shadow 0.18s ease, border-color 0.18s ease;
+}
+
+ul li:hover {
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.07);
+  border-color: #cbd5e1;
+}
+
+/* ── 10. Organization logos inside list items ─────────────── */
+ul li img {
+  width: 48px;
+  height: 48px;
+  object-fit: contain;
+  flex-shrink: 0;           /* prevents logo from squishing */
+  border-radius: 4px;
+}
+
+/* ── 11. Inline links (inside body content) ───────────────── */
+main a {
+  color: var(--color-accent);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+main a:hover {
+  color: var(--color-accent-hover);
+}
+
+/* ── 12. Home page logo ───────────────────────────────────── */
+.main-logo {
+  display: block;
+  max-width: 220px;
+  height: auto;
+  margin: var(--space-xl) 0;
+}
+
+/* ── 13. Footer ───────────────────────────────────────────── */
+footer {
+  background-color: var(--color-footer-bg);
+  color: var(--color-footer-text);
+  text-align: center;
+  padding: var(--space-lg) var(--space-xl);
+  font-size: var(--font-size-sm);
+  letter-spacing: 0.01em;
+}
+
+/* The general p rule sets a dark color — override it inside footer */
+footer p {
+  color: inherit;
+  max-width: none;
+  margin: 0;
+}
+
+/* ── 14. Responsive — tablet (≥ 640px) ───────────────────── */
+@media (min-width: 640px) {
+  nav ul {
+    gap: var(--space-sm) var(--space-xl);
+  }
+}
+
+/* ── 15. Responsive — mobile (< 480px) ───────────────────── */
+/*
+   On small screens: nav links stack vertically and content
+   padding is reduced to maximize usable space.
+*/
+@media (max-width: 480px) {
+  nav {
+    padding: var(--space-md);
+  }
+
+  nav ul {
+    flex-direction: column;
+    gap: var(--space-xs);
+  }
+
+  nav a {
+    display: block;
+    padding: var(--space-sm) var(--space-md);
+    font-size: var(--font-size-md);
+  }
+
+  main {
+    padding: 0 var(--space-md);
+    margin: var(--space-xl) auto;
+  }
+
+  /* Stack org logo above text on very small screens */
+  ul li {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
