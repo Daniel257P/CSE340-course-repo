@@ -48,3 +48,30 @@ VALUES
 (3, 'Senior Companion Day', 'Spending time with seniors through games and conversation.', 'Golden Years Senior Home', '2024-09-25'),
 (3, 'Community Wellness Expo', 'Offering free health screenings and wellness resources.', 'City Civic Center', '2024-10-06'),
 (3, 'Emergency Relief Kit Assembly', 'Assembling emergency kits for families affected by disasters.', 'UnityServe Warehouse', '2024-08-28');
+
+CREATE TABLE category (
+    category_id SERIAL PRIMARY KEY,
+    category_name VARCHAR(100) NOT NULL UNIQUE
+);
+
+SELECT * FROM category; 
+CREATE TABLE project_category (
+    project_id INT NOT NULL,
+    category_id INT NOT NULL,
+    PRIMARY KEY (project_id, category_id),
+    FOREIGN KEY (project_id) REFERENCES service_project(project_id) ON DELETE CASCADE,
+    FOREIGN KEY (category_id) REFERENCES category(category_id) ON DELETE CASCADE
+);
+
+SELECT * FROM project_category; 
+INSERT INTO category (category_name) VALUES
+('Environmental'),
+('Educational'),
+('Community Service'),
+('Health and Wellness');
+
+INSERT INTO project_category (project_id, category_id) VALUES
+(1, 1), -- Project 1 → Environmental
+(2, 2), -- Project 2 → Educational
+(3, 3), -- Project 3 → Community Service
+(4, 4); -- Project 4 → Health and Wellness
