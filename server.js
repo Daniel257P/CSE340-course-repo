@@ -40,21 +40,21 @@ app.get('/', (req, res) => {
 
 app.get('/organizations', async (req, res) => {
     const organizations = await getAllOrganizations(); 
-    console.log('organizations:', organizations); // Log the retrieved organizations for debugging
+    // console.log('organizations:', organizations); // Log the retrieved organizations for debugging
     const title = 'Our Partner Organizations';
     res.render('organizations', { title, organizations });
 });
 
 app.get('/projects', async (req, res) => {
   const projects = await getAllProjects();
-  console.log('projects:', projects); // Log the retrieved projects for debugging
+  // console.log('projects:', projects); // Log the retrieved projects for debugging
   const title = 'Projects';
   res.render('projects', { title, projects });
 });
 
 app.get('/categories', async (req, res) => {
   const categories = await getAllCategories();
-  console.log('categories:', categories); // Log the retrieved categories for debugging
+  // console.log('categories:', categories); // Log the retrieved categories for debugging
   const title = 'Categories';
   res.render('categories', { title, categories });
 });
