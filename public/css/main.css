@@ -190,7 +190,8 @@ ul {
 
 ul li {
   display: flex;
-  align-items: center;
+  flex-direction: column;
+  align-items: flex-start;
   gap: var(--space-md);
   padding: var(--space-md) var(--space-lg);
   background-color: var(--color-surface);
@@ -212,6 +213,18 @@ ul li img {
   object-fit: contain;
   flex-shrink: 0;           /* prevents logo from squishing */
   border-radius: 4px;
+}
+
+/* ── 10b. Organizations list — logo left, details right ───── */
+.org-list li {
+  flex-direction: row;
+  align-items: flex-start;
+}
+
+.org-list .org-info {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
 }
 
 /* ── 11. Inline links (inside body content) ───────────────── */
@@ -284,7 +297,8 @@ footer p {
   }
 
   /* Stack org logo above text on very small screens */
-  ul li {
+  ul li,
+  .org-list li {
     flex-direction: column;
     align-items: flex-start;
   }
