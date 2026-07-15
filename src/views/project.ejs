@@ -1,0 +1,21 @@
+<%- include('partials/header') %>
+    <main class="project-detail">
+        <div class="detail-card">
+            <span class="eyebrow">Service Project</span>
+            <h1><%= projectDetails.title %></h1>
+            <p class="detail-description"><%= projectDetails.description %></p>
+            <p class="detail-meta-item"><strong>Date:</strong> <%= projectDetails.date.toLocaleDateString() %></p>
+            <p class="detail-meta-item"><strong>Location:</strong> <%= projectDetails.location %></p>
+            <p class="detail-meta-item"><strong>Partner Organization:</strong> <a href="/organization/<%= projectDetails.organization_id %>"><%= projectDetails.organization_name %></a></p>
+            <h3>Categories</h3>
+            <ul class="category-pills">
+                <% categories.forEach(category => { %>
+                    <li><%= category.category_name %></li>
+                <% }); %>
+                <% if (categories.length === 0) { %>
+                    <li class="category-pills-empty">No categories assigned yet</li>
+                <% } %>
+            </ul>
+        </div>
+    </main>
+<%- include('partials/footer') %>

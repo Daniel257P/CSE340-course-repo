@@ -1,7 +1,7 @@
 :root {
   /* Color palette — navy primary matches the logo */
   --color-primary:       #1a3a5c;
-  --color-accent:        #2563eb;
+  --color-accent:        #1a3a5c;
   --color-accent-hover:  #1d4ed8;
   --color-bg:            #f1f5f9;   /* light gray page background */
   --color-surface:       #ffffff;   /* card / list-item background */
@@ -11,6 +11,7 @@
   --color-nav-bg:        #1a3a5c;
   --color-footer-bg:     #1a3a5c;
   --color-footer-text:   #e2e8f0;
+  --color-link:          #4338ca;   /* violet — emphasis links (titles, org names) */
 
   /* Typography */
   --font-body:    'Inter', system-ui, -apple-system, sans-serif;
@@ -126,7 +127,8 @@ nav a::after {
 }
 
 nav a:hover::after,
-nav a:focus-visible::after {
+nav a:focus-visible::after,
+nav a.active::after {
   transform: scaleX(1);
 }
 
@@ -134,6 +136,12 @@ nav a:hover,
 nav a:focus-visible {
   color: rgba(255, 255, 255, 0.85);
   outline: none;
+}
+
+/* Active page: same underline as hover, but stays on without needing the mouse */
+nav a.active {
+  color: #ffffff;
+  font-weight: 700;
 }
 
 /* ── 6. Main Content Area ─────────────────────────────────── */
@@ -225,6 +233,101 @@ ul li img {
   display: flex;
   flex-direction: column;
   gap: var(--space-xs);
+}
+
+/* ── 10c. Upcoming projects list — flowing text, not a column ── */
+.project-list li {
+  display: block;
+}
+
+/* ── 10d. Project detail page ─────────────────────────────── */
+.project-detail .detail-card {
+  background-color: var(--color-surface);
+  border-radius: 1.25rem;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+  padding: var(--space-2xl) var(--space-xl);
+  animation: fadeInUp 0.4s ease;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.project-detail .eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  background-color: #eef2ff;
+  color: var(--color-accent);
+  font-size: var(--font-size-sm);
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  padding: 0.35rem 0.85rem;
+  border-radius: 999px;
+  margin-bottom: var(--space-md);
+}
+
+.project-detail .eyebrow::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: var(--color-accent);
+}
+
+.project-detail .detail-description {
+  color: var(--color-text-muted);
+  font-size: 1.05rem;
+}
+
+.project-detail .detail-meta-item {
+  margin-bottom: var(--space-xs);
+}
+
+.project-detail .detail-meta-item a {
+  color: var(--color-link);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  font-weight: 600;
+}
+
+.project-detail .category-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-sm);
+  margin-top: var(--space-sm);
+}
+
+.project-detail .category-pills li {
+  display: block;
+  padding: var(--space-xs) var(--space-md);
+  margin-bottom: 0;
+  font-weight: 600;
+  font-size: var(--font-size-sm);
+  border-radius: 999px;
+  transition: transform 0.18s ease, background-color 0.18s ease, color 0.18s ease, box-shadow 0.18s ease;
+}
+
+.project-detail .category-pills li:hover {
+  transform: translateY(-2px) scale(1.04);
+  background-color: var(--color-accent);
+  border-color: var(--color-accent);
+  color: #ffffff;
+  box-shadow: 0 4px 10px rgba(37, 99, 235, 0.25);
+}
+
+.project-detail .category-pills-empty {
+  color: var(--color-text-muted);
+  font-weight: 400;
+  font-style: italic;
 }
 
 /* ── 11. Inline links (inside body content) ───────────────── */
