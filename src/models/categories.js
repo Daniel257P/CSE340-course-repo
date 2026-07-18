@@ -12,6 +12,18 @@ const getAllCategories = async() => {
     return result.rows;
 }
 
+const getCategoryById = async (categoryId) => {
+    const query = `
+        SELECT category_id, category_name
+        FROM public.category
+        WHERE category_id = $1;
+    `;
+
+    const result = await db.query(query, [categoryId]);
+
+    return result.rows.length > 0 ? result.rows[0] : null;
+}
+
 const getCategoriesByProjectId = async (projectId) => {
     const query = `
         SELECT c.category_id, c.category_name
@@ -26,4 +38,4 @@ const getCategoriesByProjectId = async (projectId) => {
     return result.rows;
 }
 
-export {getAllCategories, getCategoriesByProjectId}
+export {getAllCategories, getCategoryById, getCategoriesByProjectId}
