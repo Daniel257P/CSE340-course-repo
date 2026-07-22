@@ -18,3 +18,13 @@
             <li><a href="/categories" class="<%= currentPath.startsWith('/categories') ? 'active' : '' %>" <%= currentPath.startsWith('/categories') ? 'aria-current="page"' : '' %>>Categories</a></li>
         </ul>
     </nav>
+    <div class="flash-container">
+        <% const messages = flash(); %>
+        <% Object.keys(messages).forEach(type => { %>
+            <% if (messages[type].length > 0) { %>
+                <% messages[type].forEach(msg => { %>
+                    <div class="alert <%= type %>"><%= msg %></div>
+                <% }); %>
+            <% } %>
+        <% }); %>
+    </div>
