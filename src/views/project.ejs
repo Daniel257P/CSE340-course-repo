@@ -7,6 +7,7 @@
             <p class="detail-meta-item"><strong>Date:</strong> <%= projectDetails.date.toLocaleDateString() %></p>
             <p class="detail-meta-item"><strong>Location:</strong> <%= projectDetails.location %></p>
             <p class="detail-meta-item"><strong>Partner Organization:</strong> <a href="/organization/<%= projectDetails.organization_id %>"><%= projectDetails.organization_name %></a></p>
+            <p><a href="/edit-project/<%= projectDetails.project_id %>">Edit Project</a></p>
             <h3>Categories
                 <a href="/assign-categories/<%= projectDetails.project_id %>" class="edit-categories-link"><%= categories.length === 0 ? 'Assign Category' : 'Edit Categories' %></a>
             </h3>
