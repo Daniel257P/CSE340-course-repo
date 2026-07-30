@@ -16,6 +16,12 @@
             <li><a href="/organizations" class="<%= currentPath.startsWith('/organization') ? 'active' : '' %>" <%= currentPath.startsWith('/organization') ? 'aria-current="page"' : '' %>>Organizations</a></li>
             <li><a href="/projects" class="<%= currentPath.startsWith('/project') ? 'active' : '' %>" <%= currentPath.startsWith('/project') ? 'aria-current="page"' : '' %>>Projects</a></li>
             <li><a href="/categories" class="<%= currentPath.startsWith('/categories') ? 'active' : '' %>" <%= currentPath.startsWith('/categories') ? 'aria-current="page"' : '' %>>Categories</a></li>
+            <% if (isLoggedIn) { %>
+                <li><a href="/logout" class="<%= currentPath === '/logout' ? 'active' : '' %>" <%= currentPath === '/logout' ? 'aria-current="page"' : '' %>>Logout</a></li>
+            <% } else { %>
+                <li><a href="/register" class="<%= currentPath === '/register' ? 'active' : '' %>" <%= currentPath === '/register' ? 'aria-current="page"' : '' %>>Register</a></li>
+                <li><a href="/login" class="<%= currentPath === '/login' ? 'active' : '' %>" <%= currentPath === '/login' ? 'aria-current="page"' : '' %>>Login</a></li>
+            <% } %>
         </ul>
     </nav>
     <div class="flash-container">
