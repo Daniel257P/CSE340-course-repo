@@ -20,7 +20,7 @@ import { showAssignCategoriesForm, processAssignCategoriesForm } from './control
 import { categoryValidation, showNewCategoryForm, processNewCategoryForm, showEditCategoryForm, processEditCategoryForm } from './controllers/categories.js';
 import { showUserRegistrationForm, processUserRegistrationForm } from './controllers/users.js';
 import { showLoginForm, processLoginForm, processLogout } from './controllers/users.js';
-import { requireLogin, showDashboard } from './controllers/users.js';
+import { requireLogin, showDashboard, showUsersPage } from './controllers/users.js';
 import { requireRole } from './controllers/users.js';
 
 const router = express.Router();
@@ -38,6 +38,7 @@ router.get('/login', showLoginForm);
 router.post('/login', processLoginForm);
 router.get('/logout', processLogout);
 router.get('/dashboard', requireLogin, showDashboard);
+router.get('/users', requireRole('admin'), showUsersPage);
 
 // User registration routes
 router.get('/register', showUserRegistrationForm);
