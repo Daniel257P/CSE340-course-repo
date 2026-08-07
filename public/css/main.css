@@ -299,6 +299,87 @@ ul li img {
   font-weight: 600;
 }
 
+/* ── 10e. Buttons ──────────────────────────────────────────── */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-xs);
+  padding: var(--space-sm) var(--space-lg);
+  border-radius: var(--radius);
+  border: 1px solid transparent;
+  font-family: inherit;
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  line-height: 1;
+  cursor: pointer;
+  transition: background-color 0.18s ease, border-color 0.18s ease, color 0.18s ease, transform 0.08s ease;
+}
+
+.btn:active {
+  transform: translateY(1px);
+}
+
+.btn-primary {
+  background-color: var(--color-accent);
+  color: #ffffff;
+}
+
+.btn-primary:hover {
+  background-color: var(--color-accent-hover);
+}
+
+.btn-outline-danger {
+  background-color: transparent;
+  border-color: #dc2626;
+  color: #dc2626;
+}
+
+.btn-outline-danger:hover {
+  background-color: #dc2626;
+  color: #ffffff;
+}
+
+/* ── 10f. Volunteer status + actions (project detail page) ─── */
+.project-detail .volunteer-actions {
+  margin-bottom: var(--space-md);
+}
+
+.project-detail .volunteer-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  background-color: #dcfce7;
+  color: #15803d;
+  font-size: var(--font-size-sm);
+  font-weight: 700;
+  padding: 0.35rem 0.85rem;
+  border-radius: 999px;
+  margin-bottom: var(--space-sm);
+}
+
+.project-detail .volunteer-status::before {
+  content: '✓';
+}
+
+/* ── 10g. Volunteer list on the dashboard ─────────────────── */
+.volunteer-list li {
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.volunteer-list .volunteer-info {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+}
+
+.volunteer-list .volunteer-meta {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+}
+
 .project-detail .edit-categories-link {
   margin-left: var(--space-sm);
   font-size: var(--font-size-sm);
@@ -445,7 +526,8 @@ footer p {
 
   /* Stack org logo above text on very small screens */
   ul li,
-  .org-list li {
+  .org-list li,
+  .volunteer-list li {
     flex-direction: column;
     align-items: flex-start;
   }

@@ -9,5 +9,23 @@
         <p><a href="/users">View All Users</a></p>
     <% } %>
 
+    <h2>My Volunteer Projects</h2>
+    <ul class="volunteer-list">
+        <% volunteeredProjects.forEach(project => { %>
+            <li>
+                <div class="volunteer-info">
+                    <a href="/project/<%= project.project_id %>"><%= project.title %></a>
+                    <span class="volunteer-meta"><%= project.organization_name %> — <%= new Date(project.date).toLocaleDateString() %></span>
+                </div>
+                <form action="/unvolunteer/<%= project.project_id %>" method="POST">
+                    <button type="submit" class="btn btn-outline-danger">Remove</button>
+                </form>
+            </li>
+        <% }); %>
+        <% if (volunteeredProjects.length === 0) { %>
+            <li>You haven't signed up to volunteer for any projects yet.</li>
+        <% } %>
+    </ul>
+
 </main>
 <%- include('partials/footer') %>

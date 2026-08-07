@@ -22,6 +22,7 @@ import { showUserRegistrationForm, processUserRegistrationForm } from './control
 import { showLoginForm, processLoginForm, processLogout } from './controllers/users.js';
 import { requireLogin, showDashboard, showUsersPage } from './controllers/users.js';
 import { requireRole } from './controllers/users.js';
+import { processVolunteerSignup, processVolunteerRemoval } from './controllers/volunteers.js';
 
 const router = express.Router();
 
@@ -39,6 +40,10 @@ router.post('/login', processLoginForm);
 router.get('/logout', processLogout);
 router.get('/dashboard', requireLogin, showDashboard);
 router.get('/users', requireRole('admin'), showUsersPage);
+
+// Volunteer routes (any logged-in user, not admin-only)
+router.post('/volunteer/:projectId', requireLogin, processVolunteerSignup);
+router.post('/unvolunteer/:projectId', requireLogin, processVolunteerRemoval);
 
 // User registration routes
 router.get('/register', showUserRegistrationForm);

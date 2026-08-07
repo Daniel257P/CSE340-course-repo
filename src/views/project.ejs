@@ -7,7 +7,22 @@
             <p class="detail-meta-item"><strong>Date:</strong> <%= projectDetails.date.toLocaleDateString() %></p>
             <p class="detail-meta-item"><strong>Location:</strong> <%= projectDetails.location %></p>
             <p class="detail-meta-item"><strong>Partner Organization:</strong> <a href="/organization/<%= projectDetails.organization_id %>"><%= projectDetails.organization_name %></a></p>
-            
+
+            <% if (isLoggedIn) { %>
+                <div class="volunteer-actions">
+                    <% if (isVolunteering) { %>
+                        <p class="volunteer-status">You are volunteering for this project</p>
+                        <form action="/unvolunteer/<%= projectDetails.project_id %>" method="POST">
+                            <button type="submit" class="btn btn-outline-danger">Remove Myself as Volunteer</button>
+                        </form>
+                    <% } else { %>
+                        <form action="/volunteer/<%= projectDetails.project_id %>" method="POST">
+                            <button type="submit" class="btn btn-primary">Volunteer for this Project</button>
+                        </form>
+                    <% } %>
+                </div>
+            <% } %>
+
             <% if (user && user.role_name === 'admin') { %>
                 <p><a href="/edit-project/<%= projectDetails.project_id %>">Edit Project</a></p>
             <% } %>

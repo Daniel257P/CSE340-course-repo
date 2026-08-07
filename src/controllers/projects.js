@@ -3,6 +3,7 @@ import { getAllProjects, getUpcomingProjects, getProjectDetails } from '../model
 import { getCategoriesByProjectId } from '../models/categories.js';
 import { createProject, updateProject } from '../models/projects.js';
 import { getAllOrganizations } from '../models/organizations.js';
+import { isUserVolunteering } from '../models/volunteers.js';
 import { body, validationResult } from 'express-validator';
 
 const projectValidation = [
@@ -41,7 +42,13 @@ const showProjectDetailsPage = async (req, res) => {
   const categories = await getCategoriesByProjectId(projectId);
   const title = 'Project Details';
 
-  res.render('project', { title, projectDetails, categories });
+  // Only logged-in users can volunteer, so only check for them
+  let isVolunteering = false;
+  if (req.session.user) {
+    isVolunteering = await isUserVolunteering(projectId, req.session.user.user_id);
+  }
+
+  res.render('project', { title, projectDetails, categories, isVolunteering });
 };
 
 const showNewProjectForm = async (req, res) => {
